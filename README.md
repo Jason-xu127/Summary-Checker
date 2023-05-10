@@ -1,4 +1,7 @@
 # Summary-Checker
+## Model Selection
+Since our checkpoint models are too big to be uploaded to Github, we have provided a lite verision here using Chat-GPT API and Pre-trained model provided by Huggingface. If you are interested in our Reject-SUMM and FactGraph model, please dowload them with this link https://drive.google.com/drive/folders/1-DvDybsqmGFZcdjmnAi0IA19wmHRg6aj?usp=share_link
+
 ## Installation
 
 Install the dependencies and devDependencies and start the server.
