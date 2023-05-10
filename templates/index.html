@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Summary Hallucination Detector</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">Summary Hallucination Detector</a>
+        <a class="navbar-brand" href="/page2">Hallucination-free Summary Generator</a>
+    </nav>
+    <div class="container my-5">
+      <form method="POST" action="/predict">
+        <div class="form-group">
+          <label for="document">Enter the original document:</label>
+          <textarea class="form-control" name="document" id="document" rows="5" required></textarea>
+            <small id="document-warning" class="form-text text-danger" style="display: none;">Please enter the original document.</small>
+        </div>
+        <div class="form-group">
+          <label for="summary">Enter a summary:</label>
+          <textarea class="form-control" name="summary" id="summary" rows="5" required></textarea>
+            <small id="summary-warning" class="form-text text-danger" style="display: none;">Please enter a summary.</small>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    {% if prediction is not none %}
+      <div class="container my-5">
+        <div class="alert {% if prediction %}alert-danger{% else %}alert-success{% endif %}">
+          {% if prediction %}
+            <h4>The summary contains hallucination.</h4>
+          {% else %}
+            <h4>The summary does not contain hallucination.</h4>
+          {% endif %}
+        </div>
+        <p><a href="/" class="btn btn-primary">Try another summary</a></p>
+      </div>
+    {% endif %}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script>
+      function validateForm() {
+        var documentInput = document.getElementById("document-input");
+        var summaryInput = document.getElementById("summary-input");
+        var documentWarning = document.getElementById("document-warning");
+        var summaryWarning = document.getElementById("summary-warning");
+
+        if (documentInput.value.trim() === "") {
+          documentWarning.style.display = "block";
+          return false;
+        } else {
+          documentWarning.style.display = "none";
+        }
+
+        if (summaryInput.value.trim() === "") {
+          summaryWarning.style.display = "block";
+          return false;
+        } else {
+          summaryWarning.style.display = "none";
+        }
+
+        return true;
+      }
+    </script>
